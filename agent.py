@@ -25,7 +25,7 @@ class NewsChat:
         self.session_id = article_id
 
         llm = ChatOpenAI(openai_api_key=open_api_key, model='gpt-4o')
-        db = Chroma(persisy_directory=Utils.DB_FOLDER, embedding_function=embeddings, collection_name='collection_1')
+        db = Chroma(persist_directory=Utils.DB_FOLDER, embedding_function=embeddings, collection_name='collection_1')
         retriever = db.as_retriever()
 
         contextualize_q_system_prompt =  """Given a chat history and the latest user question \
