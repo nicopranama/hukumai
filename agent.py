@@ -28,5 +28,60 @@ class NewsChat:
         db = Chroma(persisy_directory=Utils.DB_FOLDER, embedding_function=embeddings, collection_name='collection_1')
         retriever = db.as_retriever()
 
+        contextualize_q_system_prompt =  """Given a chat history and the latest user question \
+            which might reference context in the chat history, formulate a standalone question \
+            which can be understood without the chat history. Do not answer the question, \
+            just reformulate it if needed and otherwise return it as is."""
+        
+        contextualize_q_prompt = ChatPromptTemplate.from_messages(
+            [
+                ("system", contextualize_q_system_prompt),
+                MessagesPlaceholder("chat_history"),
+                ("human", "{input}"),
+            ]
+        )
+
+        history_aware_retriever = create_history_aware_retriever(llm, retriever, contextualize_q_prompt)
+
+        qa_system_prompt = """You are a helpful AI assistant that helps people for question-answering tasks. \
+            Use the following pieces of retrieved context to answer the question. \
+            If you don't know the answer, just say that you don't know, don't try to make up an answer. \
+            Keep the response clear, factual, and concise. (prefer 2-4 sentences). \
+            
+            {context}"""
+        
+        qa_prompt = ChatPromptTemplate.from_messages(
+            [
+                ("system", qa_system_prompt),
+                MessagesPlaceholder("chat_history"),
+                ("human", "{input}"),
+            ]
+        )
+
+        question_answer_chain = create_stuff_documents_chain(llm, qa_prompt)
+        rag_chain = create_retrieval_chain(history_aware_retriever, question_answer_chain)
+
+        self.rag_chain = RunnableWithMessageHistory(
+            rag_chain,
+            self.get_session_history,
+            input_messages_key = "input",
+            history_messages_key = "chat_history",
+            output_messages_key = "answer",
+        )
+
+        def get_session_history(self, session_id: str) -> BaseChatMessageHistory:
+            if session_id not in self.store:
+                self.store[session_id] = ChatMessageHistory()
+            return self.store[session_id]
+        
+        def ask(self, question: str) -> str:
+            response = self.rag_chain.invoke(
+                {"input": question},
+                config = {"configurable": {"session_id": self.session_id}},
+            ) ["answer"]
+            return response
+
+
+
         
 
