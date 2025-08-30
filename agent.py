@@ -80,8 +80,3 @@ class NewsChat:
                 config = {"configurable": {"session_id": self.session_id}},
             ) ["answer"]
             return response
-
-
-
-        
-
