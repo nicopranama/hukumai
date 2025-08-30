@@ -69,14 +69,14 @@ class NewsChat:
             output_messages_key = "answer",
         )
 
-        def get_session_history(self, session_id: str) -> BaseChatMessageHistory:
-            if session_id not in self.store:
-                self.store[session_id] = ChatMessageHistory()
-            return self.store[session_id]
+    def get_session_history(self, session_id: str) -> BaseChatMessageHistory:
+        if session_id not in self.store:
+            self.store[session_id] = ChatMessageHistory()
+        return self.store[session_id]
         
-        def ask(self, question: str) -> str:
-            response = self.rag_chain.invoke(
-                {"input": question},
-                config = {"configurable": {"session_id": self.session_id}},
-            ) ["answer"]
-            return response
+    def ask(self, question: str) -> str:
+        response = self.rag_chain.invoke(
+            {"input": question},
+            config = {"configurable": {"session_id": self.session_id}},
+        ) ["answer"]
+        return response
