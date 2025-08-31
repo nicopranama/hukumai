@@ -16,16 +16,12 @@ With this setup, the assistant can process Indonesian legal documents (e.g., Law
 
 ### Features
 
-* Extract and split text from PDF legal documents
-* Generate embeddings using OpenAI
-* Store and retrieve embeddings with ChromaDB
-* Use LangChain Agent to manage the query flow:
-
-  * Reformulate user questions (if needed)
-  * Query ChromaDB for relevant context
-  * Pass context + question to LLM
-  * Return a concise answer to the user
-* User interface with Streamlit
+* Chat memory support: the system can remember previous conversations during a session, making the dialogue more natural.
+* Document extensibility: you can add new legal documents, and the assistant will automatically include them in future answers.
+* Context-aware responses: answers are always based on the retrieved legal text, not just generic AI output.
+* Flexible question handling: even if the user’s question is unclear, the LangChain Agent can reformulate it.
+* Interactive interface: simple and easy-to-use front end powered by Streamlit.
+* SME-oriented: designed to answer practical legal questions specifically for small and medium enterprises in Indonesia.
 
 ---
 
