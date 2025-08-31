@@ -32,7 +32,7 @@ def split_text_into_sections(text, min_chars_per_section):
         paragraph_length = len(paragraph)
 
         if current_length + paragraph_length + 2 <= min_chars_per_section:
-            current_length += paragraph + '\n\n'
+            current_section += paragraph + '\n\n'
             current_length += paragraph_length + 2
         else:
             if current_section:
@@ -46,10 +46,10 @@ def split_text_into_sections(text, min_chars_per_section):
     return sections
 
 def embed_text_in_chromadb(text, document_name, document_description, persist_directory=Utils.DB_FOLDER):
+    load_dotenv()
     openai_ef = embedding_functions.OpenAIEmbeddingFunction(
-        load_dotenv(),
         api_key = OS.getenv("OPENAI_API_KEY"),
-        model_name = "text-embedding-ada-002"
+        model_name = "text-embedding-3-small"
     )
     documents = split_text_into_sections(text, 1000)
 
