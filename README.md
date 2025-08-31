@@ -207,5 +207,3 @@ Apakah UMKM dengan omzet di bawah 500 juta per tahun wajib membayar pajak pengha
 ```
 
 ---
-
-Apakah Anda mau saya tambahkan bagian **Dependencies (library list)** lengkap di README ini juga, supaya tinggal sekali lihat langsung tahu paket apa saja yang dipakai?
