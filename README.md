@@ -117,16 +117,12 @@ Dengan setup ini, asisten dapat memproses dokumen hukum Indonesia (misalnya UU N
 
 ### Fitur
 
-* Ekstraksi dan pemotongan teks dari dokumen PDF hukum
-* Membuat embedding dengan OpenAI
-* Menyimpan dan query embedding dengan ChromaDB
-* LangChain Agent mengatur alur kerja:
-
-  * Reformulasi pertanyaan (jika perlu)
-  * Query ChromaDB untuk konteks relevan
-  * Gabungkan konteks + pertanyaan ke LLM
-  * Mengembalikan jawaban singkat ke pengguna
-* Antarmuka dengan Streamlit
+* Ingat percakapan sebelumnya: setiap sesi percakapan bisa nyambung, jadi obrolan terasa lebih alami dan tidak mengulang dari awal.
+* Bisa nambah dokumen sendiri: pengguna bebas menambahkan dokumen hukum baru, sehingga jawaban makin lengkap sesuai kebutuhan.
+* Jawaban selalu relevan: sistem menjawab berdasarkan isi dokumen hukum yang ada, bukan sekadar jawaban umum dari AI.
+* Mampu memahami pertanyaan kurang jelas: kalau pertanyaan kurang spesifik, sistem bisa membantu merumuskannya kembali agar tetap bisa dijawab.
+* Antarmuka simpel: dibuat dengan Streamlit, tampilannya sederhana dan gampang dipakai siapa saja.
+* Fokus untuk UMKM: diarahkan khusus untuk menjawab pertanyaan hukum praktis yang sering ditemui pelaku UMKM di Indonesia.
 
 ---
 
